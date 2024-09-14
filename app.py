@@ -39,7 +39,7 @@ def predict():
             ]
         ])
         
-        # Scale the input data (this assumes you used StandardScaler during model training)
+        # Scale the input data 
         input_data_scaled = scaler.fit_transform(input_data)
         
         # Predict the house price
