@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>House Price Prediction</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      input,
+      button {
+        margin-bottom: 10px;
+        padding: 5px;
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Boston House Price Prediction</h1>
+    <form id="prediction-form">
+      <label>CRIM:</label><br />
+      <input type="number" id="CRIM" step="any" required /><br />
+
+      <label>ZN:</label><br />
+      <input type="number" id="ZN" step="any" required /><br />
+
+      <label>INDUS:</label><br />
+      <input type="number" id="INDUS" step="any" required /><br />
+
+      <label>CHAS (0 or 1):</label><br />
+      <input type="number" id="CHAS" required /><br />
+
+      <label>NOX:</label><br />
+      <input type="number" id="NOX" step="any" required /><br />
+
+      <label>RM:</label><br />
+      <input type="number" id="RM" step="any" required /><br />
+
+      <label>AGE:</label><br />
+      <input type="number" id="AGE" step="any" required /><br />
+
+      <label>DIS:</label><br />
+      <input type="number" id="DIS" step="any" required /><br />
+
+      <label>RAD:</label><br />
+      <input type="number" id="RAD" required /><br />
+
+      <label>TAX:</label><br />
+      <input type="number" id="TAX" required /><br />
+
+      <label>PTRATIO:</label><br />
+      <input type="number" id="PTRATIO" step="any" required /><br />
+
+      <label>B:</label><br />
+      <input type="number" id="B" step="any" required /><br />
+
+      <label>LSTAT:</label><br />
+      <input type="number" id="LSTAT" step="any" required /><br />
+
+      <button type="submit">Predict Price</button>
+    </form>
+
+    <h2 id="result"></h2>
+
+    <script>
+      document
+        .getElementById("prediction-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Collect form data
+          const data = {
+            CRIM: parseFloat(document.getElementById("CRIM").value),
+            ZN: parseFloat(document.getElementById("ZN").value),
+            INDUS: parseFloat(document.getElementById("INDUS").value),
+            CHAS: parseFloat(document.getElementById("CHAS").value),
+            NOX: parseFloat(document.getElementById("NOX").value),
+            RM: parseFloat(document.getElementById("RM").value),
+            AGE: parseFloat(document.getElementById("AGE").value),
+            DIS: parseFloat(document.getElementById("DIS").value),
+            RAD: parseFloat(document.getElementById("RAD").value),
+            TAX: parseFloat(document.getElementById("TAX").value),
+            PTRATIO: parseFloat(document.getElementById("PTRATIO").value),
+            B: parseFloat(document.getElementById("B").value),
+            LSTAT: parseFloat(document.getElementById("LSTAT").value),
+          };
+
+          // Send a POST request to the Flask API
+          const response = await fetch("/predict", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          // Get the response data
+          const result = await response.json();
+
+          // Display the result
+          if (result.predicted_price) {
+            document.getElementById(
+              "result"
+            ).textContent = `Predicted Price: $${result.predicted_price}`;
+          } else if (result.error) {
+            document.getElementById(
+              "result"
+            ).textContent = `Error: ${result.error}`;
+          }
+        });
+    </script>
+  </body>
+</html>
