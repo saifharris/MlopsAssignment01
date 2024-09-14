@@ -49,6 +49,7 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
 # Serve the index.html file from the templates folder
 @app.route('/')
 def home():
