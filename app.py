@@ -22,8 +22,7 @@ def predict():
         required_fields = [
             'CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS',
             'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT'
-        ]
-        
+        ]        
         # Check for missing fields
         for field in required_fields:
             if field not in data:
