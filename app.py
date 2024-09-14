@@ -18,7 +18,10 @@ def predict():
     try:
         # Get data from the POST request
         data = request.json
-        required_fields = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT']
+        required_fields = [
+            'CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS',
+            'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT'
+        ]
         
         # Check for missing fields
         for field in required_fields:
@@ -26,8 +29,14 @@ def predict():
                 return jsonify({'error': f'Missing field: {field}'}), 400
 
         # Prepare the input for the model
-        input_data = np.array([[data['CRIM'], data['ZN'], data['INDUS'], data['CHAS'], data['NOX'], data['RM'],
-                                data['AGE'], data['DIS'], data['RAD'], data['TAX'], data['PTRATIO'], data['B'], data['LSTAT']]])
+        input_data = np.array([
+            [
+                data['CRIM'], data['ZN'], data['INDUS'], data['CHAS'],
+                data['NOX'], data['RM'], data['AGE'], data['DIS'],
+                data['RAD'], data['TAX'], data['PTRATIO'], data['B'],
+                data['LSTAT']
+            ]
+        ])
         
         # Scale the input data (this assumes you used StandardScaler during model training)
         input_data_scaled = scaler.fit_transform(input_data)
@@ -44,6 +53,7 @@ def predict():
 @app.route('/')
 def home():
     return render_template('index.html')
+
 
 @app.route('/favicon.ico')
 def favicon():
