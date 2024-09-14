@@ -9,8 +9,9 @@ app = Flask(__name__)
 # Load the trained model
 model = joblib.load('house-predict-model.pkl')
 
-# Initialize the scaler (if you used a scaler during model training, e.g., StandardScaler)
+# Initialize the scaler (if you used a scaler during model training)
 scaler = StandardScaler()
+
 
 # Input validation and prediction
 @app.route('/predict', methods=['POST'])
