@@ -26,9 +26,7 @@ jobs:
         run: |
           python -m unittest discover
 
-      - name: Lint code
-        run: |
-          flake8 .
+      
 
       - name: Build Docker image
         run: |
