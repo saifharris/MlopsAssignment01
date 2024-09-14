@@ -45,6 +45,11 @@ def predict():
 def home():
     return render_template('index.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204
+
+
 # Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True)
